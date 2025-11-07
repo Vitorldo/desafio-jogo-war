@@ -7,8 +7,17 @@ struct Territorio {
     int tropas;
 };
 
+struct Territorio territorios[5];
 
 int main()
 {
-    return 0; 
+    strcpy(territorios[0].nome, "America");
+    strcpy(territorios[0].cor, "Azul");
+    territorios[0].tropas = 3;
+    printf("%s\n", territorios[0].nome);
+
+    territorios[1] = (struct Territorio){"Oceania", "Amarelo", 5};
+    printf("%s\n", territorios[1].nome);
+    
+    return 0;
 }
