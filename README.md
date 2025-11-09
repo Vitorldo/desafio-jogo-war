@@ -110,6 +110,8 @@ Exibição pós-ataque: o sistema deve exibir os dados atualizados dos territór
 1- Este desafio introduz o conceito de structs como ferramenta para agrupar dados relacionados. Assim, ao final, você entenderá como utilizar estruturas compostas para organizar informações e criar sistemas mais legíveis e escaláveis.
 2-O desafio do nível aventureiro representa um passo importante na evolução do sistema do War estruturado. A funcionalidade de ataque aproxima o sistema do comportamento real do jogo e reforça habilidades fundamentais para a construção de programas interativos e escaláveis em C.
 
-Usar o gcc war.c && ./a.out 
-
+# Usar no terminal para rodar
+gcc war.c && ./a.out 
+# push github 
+git push -u origin main
 
