@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<time.h>
 #include<string.h>
+#include<stdlib.h>
 
 struct Territorio {
     char nome[30];
@@ -8,27 +9,25 @@ struct Territorio {
     int tropas;
 };
 
-// Função para gerar um numero aleatório pela hora da jogada
-//int gerarNumeroAleatorio(int min, int max) {
-    //return (rand() % (max - min + 1)) + min;
-//}
-
-
-struct Territorio territorios[5];
+int numTerritorio = 5;
 
 int main()
 {
+    //Alocando memória e criando um ponteiro
+    struct Territorio* t=(struct Territorio*)malloc(sizeof(struct Territorio));
+    if (t==NULL) return 1;
+
     // Criacao do Menu
     printf("=============================\n\n");
     printf("Vamos cadastrar os 5 territorios iniciais do nosso mundo.\n");
-    for (int i = 1; i<=5; i++) {
+    for (int i = 1; i <= numTerritorio; i++) {
         printf("\n--- Cadastrando Territorio %d ---\n", i);
         printf("Nome do Territorio: ");
-        scanf("%s", territorios[i-1].nome);
+        scanf("%s", t[i-1].nome);
         printf("Cor do Exercito: ");
-        scanf("%s", territorios[i-1].cor);
+        scanf("%s", t[i-1].cor);
         printf("Numero de Tropas: ");
-        scanf("%d", &territorios[i-1].tropas);
+        scanf("%d", &t[i-1].tropas);
         
     }
     //Exibe os 5 territórios cadastrados 
@@ -36,18 +35,21 @@ int main()
     printf("      MAPA DO MUNDO - ESTADO ATUAL       \n");
     printf("=========================================\n");
     //Loop de apresentacao de todos os territorios
-    for (int i = 1; i<=5; i++) {
-        printf("--- Territorio %d ---\n", i + 1);
-        printf("Nome: %s\n", territorios[i].nome);
-        printf("Cor do Exercito: %s\n", territorios[i].cor);
-        printf("Numero de Tropas: %d\n", territorios[i].tropas);
-        printf("\n"); 
+        for (int i = 1; i< numTerritorio; i++) {
+            printf("%d. ", i );
+            printf("%s", t[i-1].nome);
+            printf(" (Exército %s,", t[i-1].cor);
+            printf("Tropas: %d)\n", t[i-1].tropas);
+            printf("\n"); 
+        }
+        //fase de ataque 
+       // printf("--- FASE DE ATAQUE---"); 
+        // Função para jogar dados 
+        //int lancadados() {
+            //return num.aleatório(1,6);
+        //int dadoAtacante = lancadados();
+        //int dadoDefensor = lancadados();
+        free(t);
+        return 0;
     }
-
-
-
-
-
-    return 0;
-}
 
