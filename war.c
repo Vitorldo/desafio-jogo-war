@@ -59,8 +59,23 @@ int main()
                 printf("Invalido! Tente novamente.\n");
                 while (getchar() != '\n'); // Limpa até encontrar quebra de linha
                 // Volta para o início do while(1)
-            
+            }
         }
+    printf("\n--- ESCOLHA O TERRITÓRIO QUE QUER ATACAR ---\n");
+        while (1) {  // 1 = sempre verdadeiro, loop continua
+            printf("Digite um numero (1 a 5): ");
+            scanf("%d", &defensor);
+        
+            if (defensor >= 1 && defensor <= 5 && atacante != defensor) {
+                printf("Valido!\n");
+                break;  // Para o loop (sai do while)
+            } else {
+                printf("Invalido! Tente novamente.\n");
+            while (getchar() != '\n'); // Limpa até encontrar quebra de linha
+            // Volta para o início do while(1)
+            }
+
+
     }
          
 
