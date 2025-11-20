@@ -8,14 +8,16 @@ struct Territorio {
     char cor[10];
     int tropas;
 };
+void limpar_buffer();
 void atacar(struct Territorio* atacante, struct Territorio* defensor);
+void loopPrincipal (struct Territorio* t, int numTerritorio);
 int numTerritorio = 5;
 
 int main() {
     srand(time(NULL)); // Usar sempre depois da main
 
     //Alocando memória e criando um ponteiro
-    struct Territorio* t = malloc(numTerritorio * sizeof(struct Territorio));
+    struct Territorio* t = malloc(numTerritorio* sizeof(struct Territorio));
     if (t==NULL) return 1;
 
     // Criacao do Menu
@@ -30,6 +32,19 @@ int main() {
         printf("Numero de Tropas: ");
         scanf("%d", &t[i-1].tropas);
     }   
+
+    //loop principal do jogo 
+    int escolhaMenu;
+    int atacante, defensor;
+    
+    while(1){
+        printf("\n==O QUE DESEJA FAZER?==\n");
+        printf("1. == ATACAR==\n");
+        printf("2.==SAIR DO JOGO==\n");
+        printf("==ESCOLHA==\n");
+        scanf("%d", &escolhaMenu); 
+
+        if (escolhaMenu ==1 ){
     //Exibe os 5 territórios cadastrados 
     printf("=========================================\n");
     printf("      MAPA DO MUNDO - ESTADO ATUAL       \n");
@@ -45,9 +60,9 @@ int main() {
     printf("         FASE DE ATAQUE                  \n");
     printf("=========================================\n");
     
-    int atacante, defensor;
-
-    printf("\n--- ESCOLHA NUMERO DO SEU TERRITORIO ---\n");
+    
+             
+// printf("\n--- ESCOLHA NUMERO DO SEU TERRITORIO ---\n");
         
         while (1) {  // 1 = sempre verdadeiro, loop continua
             printf("Digite um numero (1 a 5): ");
@@ -58,7 +73,7 @@ int main() {
                 break;  // Para o loop (sai do while)
             } else {
                 printf("Invalido! Tente novamente.\n");
-                while (getchar() != '\n'); // Limpa até encontrar quebra de linha
+               // while (getchar() != '\n'); // Limpa até encontrar quebra de linha
                 // Volta para o início do while(1)
             }
         }
@@ -78,33 +93,47 @@ int main() {
 }
     printf("atacante %d, defensor %d", atacante, defensor);
 // Função de ataque
-//
+
    printf("\n==========================================\n");
    printf("                  BATALHA                  \n");
    printf("===========================================\n");
 
     atacar(&t[atacante-1], &t[defensor-1]);
-    
+    while (t[atacante].tropas > 1 && t[defensor].tropas > 0){
+        //chama a função atacar novamente
+        atacar(&t[atacante-1], &t[defensor-1]);
+    }
+   } else if (escolhaMenu >1) {
+        break;
+
+
+   }    
+  }
+  
+   
+
     free(t);
     return 0;
- }
+} 
 
 
  void atacar(struct Territorio *atacante, struct Territorio *defensor)
- {
+{ 
  
     int dadoAtacante = rand() % 6 + 1;   
     int dadoDefensor = rand() % 6 + 1;
-    printf("ATK %d DEF %d\n", dadoAtacante, dadoDefensor);
+    printf("%d ATACA %d DEFENDE\n", dadoAtacante, dadoDefensor);
 
-    if dadoAtacante > dadoDefensor {
-        int metade = atacante->tropas / 2; 
-        defensor->cor = atacante->cor;
+    if (dadoAtacante > dadoDefensor) {
+        int metade = atacante->tropas /2  ; 
+        strcpy(defensor->cor, atacante->cor);
         defensor->tropas = metade;
+        printf("%s Ganhou\n", atacante->nome);
     } else if (dadoAtacante < dadoDefensor) {
-        atacante->tropas = atacante->tropas - 1;
+              (atacante->tropas = defensor->tropas);
+        printf("%s Ganhou\n", defensor->nome);
     } else {
+        printf("== Empate, Jogue novamente==\n");
         // empate 
-    }
-    
+       }
  }
