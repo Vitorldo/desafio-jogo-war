@@ -8,13 +8,14 @@ struct Territorio {
     char cor[10];
     int tropas;
 };
-
+void atacar(struct Territorio* atacante, struct Territorio* defensor);
 int numTerritorio = 5;
 
-int main()
-{
+int main() {
+    srand(time(NULL)); // Usar sempre depois da main
+
     //Alocando memória e criando um ponteiro
-    struct Territorio* t=(struct Territorio*)malloc(sizeof(struct Territorio));
+    struct Territorio* t = malloc(numTerritorio * sizeof(struct Territorio));
     if (t==NULL) return 1;
 
     // Criacao do Menu
@@ -46,7 +47,7 @@ int main()
     
     int atacante, defensor;
 
-    printf("\n--- ESCOLHA NUMERO DO TERRITORIO ATACANTE ---\n");
+    printf("\n--- ESCOLHA NUMERO DO SEU TERRITORIO ---\n");
         
         while (1) {  // 1 = sempre verdadeiro, loop continua
             printf("Digite um numero (1 a 5): ");
@@ -68,20 +69,42 @@ int main()
         
             if (defensor >= 1 && defensor <= 5 && atacante != defensor) {
                 printf("Valido!\n");
-                break;  // Para o loop (sai do while)
+                break;// Para o loop (sai do while)
             } else {
                 printf("Invalido! Tente novamente.\n");
             while (getchar() != '\n'); // Limpa até encontrar quebra de linha
             // Volta para o início do while(1)
             }
+}
+    printf("atacante %d, defensor %d", atacante, defensor);
+// Função de ataque
+//
+   printf("\n==========================================\n");
+   printf("                  BATALHA                  \n");
+   printf("===========================================\n");
 
-
-    }
-         
-
-
-
-        free(t);
-         return 0;
-}  
+    atacar(&t[atacante-1], &t[defensor-1]);
     
+    free(t);
+    return 0;
+ }
+
+
+ void atacar(struct Territorio *atacante, struct Territorio *defensor)
+ {
+ 
+    int dadoAtacante = rand() % 6 + 1;   
+    int dadoDefensor = rand() % 6 + 1;
+    printf("ATK %d DEF %d\n", dadoAtacante, dadoDefensor);
+
+    if dadoAtacante > dadoDefensor {
+        int metade = atacante->tropas / 2; 
+        defensor->cor = atacante->cor;
+        defensor->tropas = metade;
+    } else if (dadoAtacante < dadoDefensor) {
+        atacante->tropas = atacante->tropas - 1;
+    } else {
+        // empate 
+    }
+    
+ }
