@@ -5,7 +5,7 @@
 
 2- Primeiro, você receberá a missão de implementar a funcionalidade de ataque entre territórios. Com base nos territórios já cadastrados, o sistema deverá permitir que um jogador selecione um território como atacante, e outro como defensor. O ataque será resolvido por meio de uma simulação com dados aleatórios (como rolagem de dados), e o resultado alterará o controle e as tropas do território atacado. 
 
- 
+ 3- Você receberá a missão de implementar a funcionalidade de missões estratégicas individuais para cada jogador, que deverá receber, no início do jogo, uma missão sorteada de forma automática entre diversas descrições pré-definidas, armazenadas em um vetor de strings. Essa missão será consultada durante o jogo para verificar se a condição de vitória foi atingida. A nova camada de estratégia exige organização modular do código, uso de ponteiros, passagem de parâmetros por valor e referência e gerenciamento adequado da memória.
 
 Lembre-se: essa etapa deve utilizar ponteiros para manipular os dados dos territórios e a alocação dinâmica de memória para armazenar os territórios cadastrados, fornecendo maior flexibilidade ao sistema.
 
@@ -30,6 +30,16 @@ Atualização de dados: o território defensor deve mudar de dono (cor do exérc
  
 Exibição pós-ataque: o sistema deve exibir os dados atualizados dos territórios após cada ataque.
 
+3- Criação do vetor de missões: declarar um vetor de strings contendo ao menos cinco descrições diferentes de missões estratégicas (ex: Conquistar 3 territórios seguidos, Eliminar todas as tropas da cor vermelha etc.).
+ 
+Sorteio da missão: implementar a função void atribuirMissao(char* destino, char* missoes[], int totalMissoes) que sorteia uma missão e copia para a variável de missão do jogador usando strcpy.
+ 
+Armazenamento e acesso: a missão de cada jogador deve ser armazenada dinamicamente utilizando malloc.
+ 
+Verificação da missão: implementar a função int verificarMissao(char* missao, Territorio* mapa, int tamanho), que avalia se a missão do jogador foi cumprida (crie uma lógica simples inicial para verificação).
+ 
+Exibição condicional: o sistema deve verificar, ao final de cada turno, se algum jogador cumpriu sua missão e declarar o vencedor.
+
 # Requisitos não funcionais
 
 1- Inclua também os seguintes critérios para ter um código funcional, eficiente e fácil de entender:
@@ -52,6 +62,14 @@ Exibição pós-ataque: o sistema deve exibir os dados atualizados dos territór
 - Gerenciamento de memória: toda memória alocada dinamicamente deve ser liberada ao final do programa utilizando free.
  
 - Interface amigável: o terminal deve orientar o jogador sobre quais territórios podem ser usados para atacar e defender, com mensagens claras.
+
+3- Modularização: o código deve estar dividido em funções específicas, como atribuirMissao, verificarMissao, exibirMissao, atacar, exibirMapa, liberarMemoria, e a main.
+ 
+Uso de ponteiros: as missões dos jogadores devem ser manipuladas por meio de ponteiros.
+ 
+Passagem por valor e referência: a missão deve ser passada por valor para exibição e por referência para atribuição e verificação.
+ 
+Interface intuitiva: o sistema deve exibir a missão ao jogador apenas uma vez (no início) e verificar silenciosamente se ela foi cumprida ao longo da execução.
 
 # Instruções detalhadas
 
@@ -82,6 +100,18 @@ Exibição pós-ataque: o sistema deve exibir os dados atualizados dos territór
 - Atualização dos campos: transfira a cor e metade das tropas para o território defensor se o atacante vencer. Se perder, o atacante perde uma tropa.
  
 - Liberação de memória: crie uma função void liberarMemoria(Territorio* mapa) para liberar o espaço alocado.
+
+3- Bibliotecas necessárias: inclua stdio.h, stdlib.h, string.h e time.h.
+ 
+Estrutura dos territórios: utilize a struct Territorio com os campos char nome[30], char cor[10], int tropas.
+ 
+Alocação de memória: use calloc ou malloc para alocar os vetores de territórios e armazenar a missão de cada jogador.
+ 
+Função de ataque: implemente void atacar(Territorio* atacante, Territorio* defensor) usando rand() para simular uma rolagem de dados (valores entre 1 e 6).
+ 
+Atualização de campos: transfira a cor e metade das tropas para o território defensor se o atacante vencer. Caso contrário, o atacante perde uma tropa.
+ 
+Função de liberação: implemente void liberarMemoria(...) para liberar toda a memória alocada dinamicamente (territórios e missões).
 
 # Requisitos técnicos adicionais
 
